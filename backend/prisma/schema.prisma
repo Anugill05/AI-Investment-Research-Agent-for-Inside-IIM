@@ -1,0 +1,65 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String     @id @default(uuid())
+  name      String
+  email     String     @unique
+  password  String
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  researches Research[]
+
+  @@map("users")
+}
+
+model Research {
+  id            String          @id @default(uuid())
+  companyName   String
+  ticker        String?
+  status        String          @default("PENDING") // PENDING, RUNNING, COMPLETED, FAILED
+  recommendation String?        // BUY, HOLD, PASS
+  confidenceScore Int?
+  errorMessage  String?
+  userId        String
+  user          User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  report        ResearchReport?
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+
+  @@index([userId])
+  @@map("researches")
+}
+
+model ResearchReport {
+  id                  String   @id @default(uuid())
+  researchId          String   @unique
+  research            Research @relation(fields: [researchId], references: [id], onDelete: Cascade)
+
+  companyOverview     String
+  financialHealth     String
+  revenueAnalysis     String
+  profitabilityAnalysis String
+  valuationSummary    String
+  newsSummary         String
+  marketSentiment     String
+  riskAnalysis        String
+  opportunities       String
+  finalRecommendation String
+  aiReasoning         String
+
+  rawFinancialData    Json?
+  rawNewsData         Json?
+  sentimentData       Json?
+
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+
+  @@map("research_reports")
+}
