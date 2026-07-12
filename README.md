@@ -108,7 +108,7 @@ InsideIIMProject 2/
 │       ├── routes/
 │       ├── middlewares/        # auth, error, validation
 │       ├── services/           # business logic (no logic in routes)
-│       ├── utils/               # ApiError, ApiResponse, jwt, retry, validators
+│       ├── utils/              # ApiError, ApiResponse, jwt, retry, validators
 │       ├── database/           # prisma client singleton
 │       └── langgraph/
 │           ├── state/          # shared graph state annotation
@@ -122,8 +122,8 @@ InsideIIMProject 2/
         ├── api/                 # axios clients
         ├── context/             # AuthContext
         ├── components/          # Sidebar, ProgressTimeline, ReportViewer, ConfidenceGauge...
-        ├── pages/                # Landing, Login, Register, Research, History, Report
-        └── styles/               # plain CSS, one file per page/concern
+        ├── pages/               # Landing, Login, Register, Research, History, Report
+        └── styles/              # plain CSS, one file per page/concern
 ```
 
 ## Installation
